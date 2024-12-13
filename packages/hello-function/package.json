@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "lib/hello-function/src/index.js",
   "scripts": {
-    "build": "tsc && cp -r ../shared/dist/* lib/shared/",
+    "build": "tsc && cp -r ../shared/dist/* lib/shared/ && cp -r ../config/dist/* lib/config/",
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",

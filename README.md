@@ -56,6 +56,20 @@ firebase login
 firebase init
 ```
 
+5. Create a .runtimeconfig.json file in the every function directory next to the src directory with the following content:
+
+```json
+{
+  "common": {
+    "api_key": "local-api-key",
+    "environment": "development"
+  },
+  "function_name": {
+    "specific_key": "local-function-key"
+  }
+}
+```
+
 ## Building
 
 Build all packages:
@@ -158,6 +172,21 @@ firebase  init  functions
     "build:new": "yarn workspace @my-project/new-function build"
   }
 }
+```
+
+## Adding environment variables
+
+```bash
+
+# Common configs
+firebase functions:config:set common.api_key="your-api-key" common.environment="production"
+
+# Hello function specific configs
+firebase functions:config:set hello.specific_key="hello-specific-value"
+
+# Goodbye function specific configs
+firebase functions:config:set goodbye.specific_key="goodbye-specific-value"
+
 ```
 
 ## Deployment

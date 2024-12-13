@@ -6,10 +6,11 @@
   ],
   "scripts": {
     "build:shared": "yarn workspace @my-project/shared build",
+    "build:config": "yarn workspace @my-project/config build",
     "build:hello": "yarn workspace @my-project/hello-function build",
     "build:goodbye": "yarn workspace @my-project/goodbye-function build",
     "build:functions": "yarn build:hello && yarn build:goodbye",
-    "build": "yarn build:shared && yarn build:functions",
+    "build": "yarn build:shared && yarn build:config && yarn build:functions",
     "serve:functions": "firebase emulators:start --only functions",
     "serve": "firebase emulators:start",
     "deploy:functions": "firebase deploy --only functions"
