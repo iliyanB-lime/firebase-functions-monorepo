@@ -1,5 +1,5 @@
 import * as functions from "firebase-functions";
-import { commonLogger } from "@my-project/shared";
+import { commonLogger } from "../../shared/src";
 
 const region = functions.region("us-central1");
 

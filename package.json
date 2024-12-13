@@ -11,6 +11,7 @@
     "build:functions": "yarn build:hello && yarn build:goodbye",
     "build": "yarn build:shared && yarn build:functions",
     "serve:functions": "firebase emulators:start --only functions",
-    "serve": "firebase emulators:start"
+    "serve": "firebase emulators:start",
+    "deploy:functions": "firebase deploy --only functions"
   }
 }

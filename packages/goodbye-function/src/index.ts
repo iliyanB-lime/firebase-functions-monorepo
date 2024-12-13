@@ -1,7 +1,10 @@
 import * as functions from "firebase-functions";
-import { commonLogger } from "@my-project/shared";
+import { commonLogger } from "../../shared/src";
 
-const region = functions.region("us-central1");
+// This is to allow the function to be called by the public and not require authentication
+const region = functions.region("us-central1").runWith({
+  invoker: "public",
+});
 
 export const goodbyeFunction = region.https.onRequest((req, res) => {
   const { pathname } = new URL(req.url, `http://${req.headers.host}`);
