@@ -1,0 +1,16 @@
+{
+  "name": "firebase-monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:shared": "yarn workspace @my-project/shared build",
+    "build:hello": "yarn workspace @my-project/hello-function build",
+    "build:goodbye": "yarn workspace @my-project/goodbye-function build",
+    "build:functions": "yarn build:hello && yarn build:goodbye",
+    "build": "yarn build:shared && yarn build:functions",
+    "serve:functions": "firebase emulators:start --only functions",
+    "serve": "firebase emulators:start"
+  }
+}

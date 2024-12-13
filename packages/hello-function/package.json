@@ -1,0 +1,25 @@
+{
+  "name": "@my-project/hello-function",
+  "version": "1.0.0",
+  "main": "lib/hello-function/src/index.js",
+  "scripts": {
+    "build": "tsc",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions:helloFunction",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
+  "dependencies": {
+    "@my-project/shared": "*",
+    "firebase-admin": "^11.0.0",
+    "firebase-functions": "^4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.0",
+    "firebase-functions-test": "^3.0.0"
+  }
+}
