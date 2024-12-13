@@ -1,20 +1,27 @@
 import * as functions from "firebase-functions";
-import { commonLogger } from "../../shared/src";
+import { helloFirstController, helloSecondController } from "./controllers";
 
-const region = functions.region("us-central1");
+enum HelloFunctionPaths {
+  FIRST = "/first",
+  SECOND = "/second",
+}
 
+// This is to allow the function to be called by the public and not require authentication
+const region = functions.region("us-central1").runWith({
+  invoker: "public",
+});
+
+// Split the implementation into two functions using controllers and services
 export const helloFunction = region.https.onRequest((req, res) => {
   const { pathname } = new URL(req.url, `http://${req.headers.host}`);
 
   switch (pathname) {
-    case "/first":
-      commonLogger("Hello logs!");
-      functions.logger.info("Hello logs!", { structuredData: true });
-      res.send("Hello from First Firebase!");
+    case HelloFunctionPaths.FIRST:
+      helloFirstController(req, res);
       break;
 
-    case "/second":
-      res.send("Hello from Second Firebase!");
+    case HelloFunctionPaths.SECOND:
+      helloSecondController(req, res);
       break;
 
     default:
