@@ -56,18 +56,12 @@ firebase login
 firebase init
 ```
 
-5. Create a .runtimeconfig.json file in the every function directory next to the src directory with the following content:
+5. Create a .env.local file in the every function directory next to the src directory with the following content:
 
-```json
-{
-  "common": {
-    "api_key": "local-api-key",
-    "environment": "development"
-  },
-  "function_name": {
-    "specific_key": "local-function-key"
-  }
-}
+```bash
+ENVIRONMENT=local
+API_KEY=your-api-key
+FUNCTION_SPECIFIC_KEY=function-specific-value
 ```
 
 ## Building
@@ -142,10 +136,25 @@ firebase  init  functions
 {
   "name": "@my-project/new-function",
   "version": "1.0.0",
+  "main": "lib/new-function/src/index.js",
+  "scripts": {
+    "build": "tsc && cp -r ../shared/dist/* lib/shared/ && cp -r ../config/dist/* lib/config/",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions:newFunction",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "20"
+  },
   "dependencies": {
-    "@my-project/shared": "",
     "firebase-admin": "^11.0.0",
-    "firebase-functions": "^4.0.0"
+    "firebase-functions": "^6.1.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.0",
+    "firebase-functions-test": "^3.0.0"
   }
 }
 ```
@@ -176,17 +185,12 @@ firebase  init  functions
 
 ## Adding environment variables
 
+Create a `.env` file in the every function directory next to the src directory with the following content. Also make sure to extent the config file with the new environment variables that you want to use in the functions.
+
 ```bash
-
-# Common configs
-firebase functions:config:set common.api_key="your-api-key" common.environment="production"
-
-# Hello function specific configs
-firebase functions:config:set hello.specific_key="hello-specific-value"
-
-# Goodbye function specific configs
-firebase functions:config:set goodbye.specific_key="goodbye-specific-value"
-
+ENVIRONMENT=local
+API_KEY=your-api-key
+FUNCTION_SPECIFIC_KEY=function-specific-value
 ```
 
 ## Deployment

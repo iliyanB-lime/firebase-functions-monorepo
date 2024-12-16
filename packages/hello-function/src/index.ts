@@ -1,5 +1,5 @@
-import * as functions from "firebase-functions";
 import { helloFirstController, helloSecondController } from "./controllers";
+import { HttpsOptions, onRequest } from "firebase-functions/v2/https";
 
 enum HelloFunctionPaths {
   FIRST = "/first",
@@ -7,21 +7,22 @@ enum HelloFunctionPaths {
 }
 
 // This is to allow the function to be called by the public and not require authentication
-const region = functions.region("us-central1").runWith({
+const httpOptions: HttpsOptions = {
+  region: "us-central1",
   invoker: "public",
-});
+};
 
 // Split the implementation into two functions using controllers and services
-export const helloFunction = region.https.onRequest((req, res) => {
+export const helloFunction = onRequest(httpOptions, (req, res) => {
   const { pathname } = new URL(req.url, `http://${req.headers.host}`);
 
   switch (pathname) {
     case HelloFunctionPaths.FIRST:
-      helloFirstController(req, res);
+      helloFirstController(req, res as any);
       break;
 
     case HelloFunctionPaths.SECOND:
-      helloSecondController(req, res);
+      helloSecondController(req, res as any);
       break;
 
     default:

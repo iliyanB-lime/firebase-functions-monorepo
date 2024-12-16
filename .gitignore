@@ -68,4 +68,4 @@ dist/
 
 # dotenv environment variables file
 .env
-.runtimeconfig.json
+.env.local
